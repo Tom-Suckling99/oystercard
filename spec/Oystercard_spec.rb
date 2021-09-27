@@ -9,10 +9,13 @@ describe Oystercard do
         expect(subject.balance).to eq (0)
     end
 
-    it 'responds to top_up method with argument' do
-        expect(subject).to respond_to(:top_up).with(1).argument
-    end
+    describe '#top_up' do
 
+        it 'responds to top_up method with argument' do
+            expect(subject).to respond_to(:top_up).with(1).argument
+        end
+    end
+    
     it 'increases the balance by however much is topped up' do
         card = Oystercard.new
         card.top_up(20)
@@ -22,6 +25,18 @@ describe Oystercard do
     it 'raises error if user goes over balance limit' do
         limit = Oystercard::LIMIT
         expect{subject.top_up(limit)}.to raise_error"Exceeded the maximum of #{limit} balance"
+    end
+
+    describe '#deduct' do
+        it 'responds to deduct method with argument' do
+            expect(subject).to respond_to(:deduct).with(1).argument
+        end
+
+        it 'decreases the balance by however much is deducted' do
+            card = Oystercard.new
+            card.deduct(20)
+            expect(card.balance).to eq (-20)
+        end
     end
 
 end
