@@ -14,12 +14,12 @@ describe Oystercard do
         it 'responds to top_up method with argument' do
             expect(subject).to respond_to(:top_up).with(1).argument
         end
-    end
     
-    it 'increases the balance by however much is topped up' do
-        card = Oystercard.new
-        card.top_up(20)
-        expect(card.balance).to eq (20)
+        it 'increases the balance by however much is topped up' do
+            card = Oystercard.new
+            card.top_up(20)
+            expect(card.balance).to eq (20)
+        end
     end
 
     it 'raises error if user goes over balance limit' do
@@ -37,6 +37,20 @@ describe Oystercard do
             card.deduct(20)
             expect(card.balance).to eq (-20)
         end
+    end
+
+    it 'responds to in journey' do
+        expect(subject).to respond_to :in_journey?
+    end
+
+    it 'touches in makes in journey true' do
+        card = subject.touch_in
+        expect(card.in_journey?).to eq true
+    end
+
+    it 'touches out makes in journey false' do
+        card = subject.touch_out
+        expect(card.in_journey?).to eq false
     end
 
 end
